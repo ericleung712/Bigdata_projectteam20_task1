@@ -24,7 +24,7 @@ provided sample-submission columns.
 | `timing_report.py` | Measures and records training, offline, and test-inference timings. |
 | `Test_data_preparation.py` | Prepares test features using the same transformations as training. |
 | `Run_test.py` | Loads saved models, predicts test labels, writes submissions, and saves tree diagrams. |
-| `Print_tree.py` | Renders a custom decision tree as a PNG image. |
+| `Print_tree.py` | Builds a Graphviz diagram of a custom decision tree. |
 | `model_weights/` | Created by training; stores serialized model artifacts and their feature metadata. |
 | `Result/` | Stores tuning results and generated submission files. |
 | `Graph/` | Stores confusion-matrix and decision-tree visualizations. |
@@ -59,15 +59,72 @@ python -m pip install --upgrade pip
 python -m pip install -r requirement.txt
 ```
 
+The Python `graphviz` package does not include the Graphviz application.
+Install it separately using Windows Package Manager:
+
+```powershell
+winget install --id Graphviz.Graphviz -e
+```
+
+Alternatively, install it from [graphviz.org/download](https://graphviz.org/download/).
+Check that the Graphviz executable is available:
+
+```powershell
+dot -V
+```
+
+If PowerShell cannot find `dot`, add Graphviz's `bin` folder to `PATH`. The
+following examples assume it is installed in `C:\Program Files\Graphviz`; use
+the actual installation path if yours differs.
+
+For the current terminal only:
+
+```powershell
+$env:PATH += ";C:\Program Files\Graphviz\bin"
+dot -V
+```
+
+To make the change persistent for your Windows user account instead:
+
+```powershell
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    "$userPath;C:\Program Files\Graphviz\bin",
+    "User"
+)
+```
+
+Restart VS Code or open a new PowerShell window after the persistent change,
+then run `dot -V` again. This adds Graphviz to your user's PATH, not the
+system-wide PATH. Applications started afterward can find Graphviz; if another
+program named `dot` is already earlier on PATH, it generally takes precedence.
+
 Run subsequent commands from the project directory with the virtual environment
 activated.
 
 ## Environment setup (Linux)
 
-Install Python 3 and its virtual-environment support using your Linux
-distribution's package manager if they are not already available. Open a
-terminal and navigate to the project directory, replacing the example path with
-its actual location:
+Install Python 3, virtual-environment support, and the Graphviz system
+application using your distribution's package manager. For Ubuntu or Debian:
+
+```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip graphviz
+```
+
+For Fedora:
+
+```bash
+sudo dnf install python3 python3-pip graphviz
+```
+
+For other distributions, install the equivalent packages using their package
+manager. The Python `graphviz` package alone does not include the Graphviz
+executable.
+
+Open a terminal and navigate to the project directory, replacing the example
+path with its actual location:
 
 ```bash
 cd /path/to/BigData_task1
@@ -76,6 +133,25 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirement.txt
 ```
+
+Verify that Graphviz is available:
+
+```bash
+dot -V
+```
+
+If the command is not found, confirm the Graphviz system package is installed
+and its `bin` directory is on `PATH`. If Graphviz was installed in a
+nonstandard location, add its `bin` directory for the current terminal:
+
+```bash
+export PATH="$PATH:/path/to/graphviz/bin"
+dot -V
+```
+
+Replace `/path/to/graphviz/bin` with the actual directory containing `dot`.
+For a persistent change, add the `export` line to your shell's startup file
+(for example, `~/.bashrc` for Bash), then open a new terminal.
 
 Run subsequent commands from the project directory with the virtual environment
 activated. The commands in the following sections work in both Linux and
@@ -150,12 +226,17 @@ This writes:
 - `Result/submission_random_forest.csv`
 - `Graph/decision_tree.png`
 - `Graph/random_forest.png`
+- `Graph/decision_tree.svg`
+- `Graph/random_forest.svg`
 - Test-inference timings in `Result/timing_report.txt`
 
 Each submission has the `id,label` columns and uses the original numeric
 predictions (`1`, `2`, `3`, `4`) rather than the class names shown in the sample
 submission. The test IDs and row order are checked against
 `Test Data/sample_submission.csv`. Tree diagrams still show class names.
+The random-forest diagrams show its first tree. SVG diagrams can be zoomed
+without losing clarity; branches labeled `yes` satisfy the displayed split
+condition, and `no` branches do not.
 
 ### Timing definitions
 
