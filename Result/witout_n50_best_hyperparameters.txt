@@ -1,0 +1,8 @@
+Best hyperparameters from 5-fold stratified cross-validation
+These values are informational and are not automatically applied to task 1.py.
+
+Decision tree (mean macro F1: 0.908)
+{'max_depth': 10, 'min_samples_leaf': 2, 'n_thresholds': 50}
+
+Random forest (mean macro F1: 0.914)
+{'n_trees': 20, 'max_depth': 10, 'min_samples_split': 2, 'min_samples_leaf': 1, 'n_thresholds': 25}

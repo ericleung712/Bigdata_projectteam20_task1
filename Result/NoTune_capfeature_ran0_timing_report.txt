@@ -1,0 +1,14 @@
+Training timing
+Data loading, preprocessing and split: 0.015403 seconds
+Decision tree validation fit: 0.453952 seconds
+Decision tree final fit: 0.492068 seconds
+Random forest validation fit: 4.205705 seconds
+Random forest final fit: 4.774852 seconds
+Total training time (all four fits): 9.926576 seconds
+Total offline time (preprocessing + training): 9.941979 seconds
+
+Inference timing
+Test records per model: 3300
+Decision tree inference: 0.002828 seconds
+Random forest inference: 0.049636 seconds
+Total inference time (both models): 0.052464 seconds
