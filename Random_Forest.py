@@ -2,8 +2,8 @@ import numpy as np
 from Decision_tree import Decision_Tree
 
 class Random_Forest:
-    def __init__(self, n_trees=20, max_depth=10, min_samples_split=2,
-           min_samples_leaf=1, n_thresholds=25, random_state=0):
+    def __init__(self, n_trees=20, max_depth=10, min_samples_split=10,
+           min_samples_leaf=1, n_thresholds=25, random_state=None):
         self.n_trees = n_trees
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
@@ -40,11 +40,13 @@ class Random_Forest:
         # Swap axes to iterate over samples
         tree_preds = np.swapaxes(tree_preds, 0, 1)
         # Majority vote for each sample
-        predictions = []
-        for votes in tree_preds:
-            labels, counts = np.unique(votes, return_counts=True)
-            predictions.append(labels[np.argmax(counts)])
-        return np.asarray(predictions)
+        predictions = np.array([np.bincount(pred).argmax() for pred in tree_preds])
+        return predictions
+        #predictions = []
+        #for votes in tree_preds:
+        #    labels, counts = np.unique(votes, return_counts=True)
+        #    predictions.append(labels[np.argmax(counts)])
+       # return np.asarray(predictions)
 
     def bootstrap(self, X, Y):
         n_samples = X.shape[0]

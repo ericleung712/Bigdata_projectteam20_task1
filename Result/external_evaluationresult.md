@@ -6,6 +6,6 @@ Results of CSV file generated on test data evaluated by external platform (with 
 | Uncleaned | NoTune_unclean_ran0_submission_decision_tree.csv | 0.90956 |
 | Interactive feature + Binned feature + One-hot encoding + outlier | NoTune_modified_ran0_submission_random_forest.csv | 0.91102 |
 | Interactive feature + Binned feature + One-hot encoding + outlier | NoTune_modified_ran0_submission_decision_tree.csv | 0.90689 |
-
+| Tuned parameter + Interactive feature + Binned feature + One-hot encoding + outlier | NoTune_modified_ran0_submission_decision_tree.csv | 0.91628|
 
 

@@ -53,8 +53,9 @@ FOREST_PARAMETERS = {
     "min_samples_split": 2,
     "min_samples_leaf": 1,
     "n_thresholds": 25,
-    "random_state": 0,
+    "random_state": 25,
 }
+
 
 
 def save_model(model_name, model, feature_columns, parameters):

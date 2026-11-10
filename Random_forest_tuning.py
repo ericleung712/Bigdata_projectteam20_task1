@@ -13,7 +13,7 @@ PARAMETER_GRID = {
     "max_depth": [4, 10, 20],
     "min_samples_split": [2, 10, 20],
     "min_samples_leaf": [1, 5, 10],
-    "n_thresholds": [50],
+    "n_thresholds": [10, 25],
 }
 
 
