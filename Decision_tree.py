@@ -66,14 +66,11 @@ class Decision_Tree:
     def build_tree(self, X, Y, depth):
         samples, features = X.shape
         labels = np.unique(Y)
-        #labels, counts = np.unique(Y, return_counts=True)
-        #majority_label = labels[np.argmax(counts)]
 
         # 1. Stopping criteria (also stop if all labels are the same)
         if (depth >= self.max_depth or samples < self.min_samples_split
                 or samples < 2 * self.min_samples_leaf or len(labels) == 1):
             return Node(value=np.argmax(np.bincount(Y)))
-            #return Node(value=majority_label)
 
         # 2. Find the best split
         best_f, best_t, best_gain = best_split(
@@ -83,7 +80,6 @@ class Decision_Tree:
         # 3. If we can't improve, stop and return a leaf
         if best_f is None or best_gain <= 0:
             return Node(value=np.argmax(np.bincount(Y)))
-            #return Node(value=majority_label)
 
         # 4. Split the data
         left_idxs = X[:, best_f] <= best_t
