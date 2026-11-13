@@ -1,3 +1,30 @@
+## Data exploration
+=== Raw Dataset shape and missing values ===
+Shape: (9900, 12)
+id                      0
+Temperature             0
+Humidity                0
+Wind Speed              0
+Precipitation (%)       0
+Cloud Cover             0
+Atmospheric Pressure    0
+UV Index                0
+Season                  0
+Visibility (km)         0
+Location                0
+label                   0
+dtype: int64
+
+=== Raw Dataset Numerical summary statistics (selected columns) ===
+                             mean        std     min      50%      max
+Temperature             19.150202  17.449431  -24.00    21.00   109.00
+Humidity                68.698788  20.238561   20.00    70.00   109.00
+Wind Speed               9.877929   6.952117    0.00     9.00    47.50
+Precipitation (%)       53.705758  31.898306    0.00    58.00   109.00
+Atmospheric Pressure  1005.823595  37.409253  800.12  1007.64  1199.21
+Visibility (km)          5.461111   3.383956    0.00     5.00    20.00
+Prepared training data saved to: /workspaces/Bigdata_projectteam20_task1/Training Data/train_cleaned_modified.csv
+
 ## No tuned cap features Random state 0 (train+test)
 (.venv) PS C:\Users\user\BigData_task1> & 'c:\Users\user\BigData_task1\.venv\Scripts\python.exe' '"c:/Users/user/BigData_task1/task 1.py"'
 
